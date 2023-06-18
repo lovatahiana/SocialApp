@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
             var users =await _context.AppUsers.ToListAsync();
@@ -30,6 +32,7 @@ namespace API.Controllers
         }
 
          [HttpGet("{id}")]
+         [Authorize]
         public async Task<ActionResult<AppUser>> GetUser(int id)
         {
             var user =await _context.AppUsers?.SingleOrDefaultAsync(x=>x.Id == id);
