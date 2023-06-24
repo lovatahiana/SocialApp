@@ -11,24 +11,9 @@ import { User } from './_models/user.model';
 export class AppComponent implements OnInit {
   title = 'Social App';
   users: any;
-  constructor(
-    private http: HttpClient,
-    private accountService: AccountService
-  ) {}
+  constructor(private accountService: AccountService) {}
   ngOnInit(): void {
-    this.getUsers();
     this.setCurrentUser();
-  }
-
-  getUsers() {
-    this.http.get('https://localhost:7099/api/Users').subscribe({
-      next: (response) => {
-        this.users = response;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
   }
 
   setCurrentUser() {
